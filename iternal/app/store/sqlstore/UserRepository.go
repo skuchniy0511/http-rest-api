@@ -1,6 +1,10 @@
 package sqlstore
 
-import "http-rest-api/iternal/app/model"
+import (
+	"database/sql"
+	"http-rest-api/iternal/app/model"
+	"http-rest-api/iternal/app/store"
+)
 
 //UserRepository...
 type UserRepository struct {
@@ -32,6 +36,9 @@ func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
 	).Scan(&u.ID,
 		&u.Email,
 		&u.EncryptedPassword); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, store.ErrRecordNotFound
+		}
 		return nil, err
 	}
 	return u, nil
