@@ -4,6 +4,7 @@ type Config struct {
 	BindAdr     string `toml:"bind_adr"`
 	LogLevel    string `toml:"log_level"`
 	DatabaseURL string `toml:"database_url"`
+	SessionKey  string `toml:"session_key"`
 }
 
 //NewConfig...
