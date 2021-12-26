@@ -2,6 +2,7 @@ package sqlstore_test
 
 import (
 	"http-rest-api/iternal/app/model"
+	"http-rest-api/iternal/app/store"
 	"http-rest-api/iternal/app/store/sqlstore"
 	"testing"
 
@@ -25,7 +26,7 @@ func TestUserRepository_FindByEmail(t *testing.T) {
 	s := sqlstore.New(db)
 	email := "allan@example.org"
 	_, err := s.User().FindByEmail(email)
-	assert.Error(t, err)
+	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
 
 	u := model.TestUser(t)
 	u.Email = email
